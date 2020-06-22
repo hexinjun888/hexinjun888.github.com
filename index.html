@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>回忆是酒,时间越久越沉香.</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(images/bg.jpg) ;background-repeat:no-repeat;background-size: cover;
+        }
+        #oDiv {
+            width: 700px;
+            height: 400px;
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+        p {
+            font-size: 40px;
+            color: #FFFFFFFF;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div id="oDiv">
+    <p>愿你把生活过成诗,富盈,美好且精致。</p>
+</div>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    //单个p元素显隐
+    function showOne(obj, speed) {
+        //split() 方法用于把一个字符串分割成字符串数组。
+        var texts = obj.html().split("");
+        //字符串数组中单个字符用于显示的时间  (2/3个speed) / 字符个数
+        var s = speed * 2 / 3 / texts.length;
+        obj.html("").show();
+        for (var i = 0; i < texts.length; i++) {
+            (function (index) {
+                setTimeout(function () {
+                    obj.append(texts[index]);
+                    //如果字符全部显示完成 就隐藏
+                    // if (index == texts.length - 1) {
+                    //     //字符串数组中所有字符用于隐藏的时间  1/3个speed
+                    //     obj.fadeOut(speed / 3);
+                    // }
+                }, s * index); //字符依次显示
+            }(i));
+        };
+    };
+    //所有p元素循环
+    function showAll(obj, speed) {
+        obj.each(function (index, element) {
+            setTimeout(function () {
+                showOne($(element), speed);
+            }, speed * index)
+        })
+    };
+    //定时器
+    function setTimer(obj, speed) {
+        showAll(obj, speed);
+    }
+
+    var p = $("p");
+    var speed = 3000;
+    setTimer(p, speed);
+</script>
+</body>
+
+</html>
